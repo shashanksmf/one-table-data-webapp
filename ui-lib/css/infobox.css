@@ -1,0 +1,54 @@
+.info-box-wrapper{
+    background-color:#757577;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+    position:relative;width:550px
+}
+.info-anchor{
+    position:absolute;bottom:-26px;text-align:center;display:block;height:1px;left:270px
+}
+
+        .museum-content-wrapper{
+			box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+		}
+		.museum-content,.peoples-content{box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+		    margin:0px 5px 0px 0px;
+			padding:0px 0px 0px 0px;
+			background: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0.75)), to(rgba(0, 0, 0, 0)), color-stop(0.1, rgba(0, 0, 0, 0.5)), color-stop(0.25, rgba(0, 0, 0, 0.3)), color-stop(0.5, rgba(0, 0, 0, 0.2)));
+			background: -webkit-linear-gradient( left, rgba(0,0,0,0.75), rgba(0,0,0,0.5) 10%, rgba(0,0,0,0.3) 25%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0));
+			background: -moz-linear-gradient( bottom, rgba(0,0,0,0.45), rgba(0,0,0,0.01) 3%,  rgba(0,0,0,0) 10%);
+			background: -ms-linear-gradient( bottom, rgba(0,0,0,0.45), rgba(0,0,0,0.01) 3%,  rgba(0,0,0,0) 10%);
+			background: -o-linear-gradient( bottom, rgba(0,0,0,0.45), rgba(0,0,0,0.01) 3%,  rgba(0,0,0,0) 10%);
+			background: linear-gradient( bottom, rgba(0,0,0,0.45), rgba(0,0,0,0.01) 3%,  rgba(0,0,0,0) 10%);background-color:#f1efe7;
+
+			margin-left: 11px;
+			padding-bottom: 10px;
+		}
+        .museum-header{
+			height: 30px;
+			padding: 12px;
+			color:#fff
+		}
+        .museum-header span{
+			line-height:25px;
+         	font-size:16px
+		}
+        .museum-more {
+          font-size:16px;display:block;font-weight:bold
+        }
+        .museum-image{
+          text-align: center;
+
+		  margin-top: -5px;	
+        }
+        .museum-image img{
+            height:150px;
+            width:100%
+        }
+        .museum-close{
+          top:11px;right:10px
+        }
+        .museum-info{
+
+          font-size:16px;
+		  padding:5px
+        }

@@ -1,0 +1,119 @@
+        html, body {
+            height : 100%;
+            padding: 0px;
+            margin: 0px;
+
+	    }
+        #mainmap{
+           width:100%;
+        }
+        #menu{
+          	position: relative;
+            display:block;
+ 	        top: 0px;
+	        left: 0px;;
+	        background: #f1f1f1;
+	        -webkit-box-shadow: 0 8px 6px -6px rgba(255, 255, 255, 0.5);
+	        -moz-box-shadow: 0 8px 6px -6px rgba(255, 255, 255, 0.5);
+	        box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.8);
+            width:100%;
+            z-index:5;
+            height:50px
+
+        }
+     #open-menu {
+      position:absolute;
+      z-index:55;
+     top: 18px;
+      right: 0px;
+     padding: 10px 8px 11px;
+     margin-top: 0px;
+     margin-right: 8px;
+}
+#info-box{
+  position:absolute;
+  top:70px;
+  left:10px;
+  z-index:100;
+  width:300px;
+
+}
+#slider-wrapper{
+  width:100%;
+  position:absolute;
+  bottom:0px;
+  z-index:20;
+  text-align:center;
+  background: none repeat scroll 0% 0% #F1F1F1;
+  background:rgb(200,200,200,);
+  background:rgba(200,200,200,0.6);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000,endColorstr=#66000000);
+  zoom: 1;
+}
+#slider-container{
+   padding-left:40px;
+   padding-right:60px;
+
+}
+
+
+
+    #main-slider .item img{
+    display: block;
+    width: 100%;
+    height: auto;
+    }
+
+    #main-slider .item span{
+    color:#444;
+    margin:5px;font-size:12px;font-weight:bold
+    }
+
+
+#main-slider .item{
+display: block;
+padding: 2px 0px;
+margin: 6px;
+color: #FFF;
+-webkit-border-radius: 3px;
+-moz-border-radius: 3px;
+border-radius: 3px;
+text-align: center;
+}
+.owl-theme .owl-controls .owl-buttons div {
+padding: 5px 9px;
+}
+
+.owl-theme .owl-buttons i{
+margin-top: 2px;
+}
+
+  .owl-theme .owl-controls .owl-pagination{
+    display:none
+  }
+
+.owl-theme .owl-controls .owl-buttons div {
+position: absolute;
+}
+
+.owl-theme .owl-controls .owl-buttons .owl-prev{
+left: -40px;
+top: 55px;
+}
+
+.owl-theme .owl-controls .owl-buttons .owl-next{
+right:-45px;
+top: 55px;
+}
+.ui-autocomplete {
+max-height: 300px;
+overflow-y: auto;
+/* prevent horizontal scrollbar */
+overflow-x: hidden;
+}
+/* IE 6 doesn't support max-height
+* we use height instead, but this forces the menu to always be this tall
+*/
+* html .ui-autocomplete {
+height: 300px;
+}
