@@ -17,12 +17,13 @@
 	<meta http-equiv="cleartype" content="on">
 
 	<title>Search site and tower database</title>
-
+<!-- 
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.16"></script>
-    <script charset="UTF-8" type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
+    <script charset="UTF-8" type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script> -->
     <script src="js/libs/jquery-1.8.2.min.js"></script>
     <script src="js/libs/modernizr.custom.js"></script>
     <!-- ui lib(responsive feature) -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="ui-lib/css/reset.css?v=1">
     <link rel="stylesheet" href="ui-lib/css/style.css?v=1">
 	<link rel="stylesheet" href="ui-lib/css/colors.css?v=1">
@@ -80,6 +81,55 @@
         }
 
     </style>
+            <style>
+        .tables .dropbtn {
+        background-color: white;
+        color: black;
+        padding: 4px;
+        font-size: 16px;
+        border:1px solid black;
+        cursor: pointer;
+        width: 50px;
+ 
+    }
+
+    .tables.dropdown {
+        position: relative;
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        left: 25%;
+
+    }
+
+    .tables .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+    .tables .dropdown-content a {
+        color: black;
+        padding: 8px;
+        text-decoration: none;
+        display: block;
+        cursor:pointer;
+    }
+
+    .tables.dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+
+    .nowrap {
+        white-space:nowrap;
+    }
+
+    </style>
+      <base href="./">
 </head>
 
 <?php
@@ -106,7 +156,8 @@ $db->close();
 ?>
 
 
-<body class="clearfix with-menu">
+
+<body class="clearfix with-menu"  ng-app="myApp" ng-controller="myCtrl">
   <!-- Prompt IE 6 users to install Chrome Frame -->
 	<!--[if lt IE 7]><p class="message red-gradient simpler">Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
 
@@ -121,7 +172,7 @@ $db->close();
 		<!-- Main title -->
 		<hgroup id="main-title" class="thin" style='height:50px'>
 
-			<h2 class='' style='top:68px;font-size:14px;z-index:1000' id='main-search-wrapper'>
+			<h2 class='' style='top:34px;font-size:14px;z-index:1000' id='main-search-wrapper' ng-if="selectedTableName == 'st'">
                 <span class="input ">
                    <form method="post" action="#" id='frm-search-latlng' style='padding-bottom: 2px;'>
                       <span class="info-spot on-left"><span class="icon-info-round"></span><span class="info-bubble">Click <i class="icon-page-list"></i> to show search options</span></span>
@@ -288,11 +339,18 @@ $db->close();
 		<li class="active"><a href="#list_view" class='with-med-padding' style="padding-bottom:12px;padding-top:12px"><i class="icon-list icon-size2"> </i> List Liew</a></li>
 		<li><a href="#map_view" class='with-med-padding' style="padding-bottom:12px;padding-top:12px"><i class="icon-marker icon-size2"> </i> Map View</a></li>
 	</ul>
+    
+    <div class="tables dropdown">
+        <button class="dropbtn glyphicon glyphicon-chevron-down text-right"></button>
+        <div class="dropdown-content">
+            <a ng-repeat="tableObj in uTableData  | unique:'table'" ng-click="selectTable(tableObj.db_tb)">{{tableObj.table}}</a>
+        </div>
+    </div>
 
 	<!-- Content -->
 	<div class="tabs-content">
 
-        <div id="list_view"  style='padding:5px 20px 20px 20px'>
+        <div id="list_view"  style='padding:5px 20px 20px 20px;max-width:1000px;overflow-x:scroll;min-height:500px'>
         <div class="colvisopts with-small-padding" id="colvisopts">
 
             <div class="showhidemenu" style='width:200px;display:inline-block'>
@@ -303,8 +361,51 @@ $db->close();
             </div>
             <div class='float-right' style="margin-right:10px;padding-top:5px"><small>In printing mode, click "ESC" in keyboard to go back in main page</small></div>
         </div>
-        <table class="table responsive-table responsive-table-on dataTable" id="table-list-view" >
+       
+       <div id="table-list-view_wrapper" class="dataTables_wrapper no-footer">
+       
+        <div class="dataTables_header">
+            <div class="dataTables_length" id="table-list-view_length">
+                <label>
+                    Show 
+                    <span class="select blue-gradient glossy replacement" style="width:44px" tabindex="0">
+                    <span class="select-value">10</span><span class="select-arrow"></span><span class="drop-down"></span>
+                    <select name="table-list-view_length" aria-controls="table-list-view" class="withClearFunctions" tabindex="-1" style="display: none;">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                    </span>
+                    entries
+                </label>
+            </div>
+            <a style="margin-top:11px" href="javascript:void(0)" class="button blue-gradient glossy" id="btn-add-to-project">Add selected entries to project.</a>
+            <div id="table-list-view_filter" class="dataTables_filter"><label>Search by Keyword:<input ng-model="searchKeyword" type="search" class="" placeholder="Within listed entries" aria-controls="table-list-view"></label></div>
+        </div>
+            <table class="table responsive-table responsive-table-on dataTable" id="table-list-view" >
+              <thead ng-if="$index == 0" ng-repeat="tableObj in selectedTableData">
+
+                <tr>
+                    <th class="sorting nowrap" ng-repeat="(key,value) in tableObj"  ng-click="sort(key)" ng-if="checkWeb(key)">{{key}}</th>
+                </tr>
+            </thead>
+
+            <tbody >
+                <tr ng-repeat="tableObj in selectedTableData | orderBy:sortType:false | filter: searchKeyword ">
+                    <td ng-if="checkWeb(key)" ng-repeat="(key,value) in tableObj">{{value}}</td>
+                </tr>
+            </tbody>
         </table>
+        
+        <div class="dataTables_footer">
+            <div class="dataTables_info" id="table-list-view_info" role="status" aria-live="polite">Showing 0 to 0 of 0 entries</div>
+            <div class="dataTables_paginate paging_full_numbers" id="table-list-view_paginate"><a class="paginate_button first disabled" aria-controls="table-list-view" data-dt-idx="0" tabindex="0" id="table-list-view_first">First</a><a class="paginate_button previous disabled" aria-controls="table-list-view" data-dt-idx="1" tabindex="0" id="table-list-view_previous">Previous</a><span></span><a class="paginate_button next disabled" aria-controls="table-list-view" data-dt-idx="2" tabindex="0" id="table-list-view_next">Next</a><a class="paginate_button last disabled" aria-controls="table-list-view" data-dt-idx="3" tabindex="0" id="table-list-view_last">Last</a></div>
+        </div>
+        </div>
+
+   
+    
 		</div>
 
 		<div id="map_view" class="with-padding">
@@ -360,7 +461,7 @@ $db->close();
 	</section>
 	<!-- End sidebar/drop-down menu -->
    <!-- JavaScript at the bottom for fast page loading -->
-    <script>
+   <script>
         MTABTAOBJECTS=<?php  print json_encode($btajson); ?>;
         PROJECTINFO='<?php echo $ProjInfo;?>';
     </script>
@@ -379,15 +480,21 @@ $db->close();
     <script src="ui-lib/js/libs/query.validationEngine.js"></script>
     <script src="ui-lib/js/libs/jquery.validationEngine-en.js"></script>
     <script src="ui-lib/js/libs/jquery.details.min.js"></script>
-    <script src="js/libs/jquery.dataTables.min.js"></script>
+     <!-- <script src="js/mapapp.js"></script> -->
+    <!-- <script src="js/libs/jquery.dataTables.min.js"></script>
      <script src="js/libs/dataTables.tableTools.js"></script>
     <script src="js/libs/dataTables.colVis.js"></script>
-    <script src="js/mapapp.js"></script>
     <script src="js/mapappbing.js"></script>
     <script src="js/colsmanager.js"></script>
-    <script src="js/main.js"></script>
-
-
+    <script src="js/main.js"></script> -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+    <script src="js/libs/lodash.min.js"> </script>
+    <script src="js/angular/angular-filter.min.js"></script>
+    <script src ="js/angular/API.js"></script>
+    <script src="js/angular/mainController.js"></script>
+    
 
 </body>
 </html>

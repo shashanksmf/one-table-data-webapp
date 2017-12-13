@@ -114,13 +114,26 @@
                                  <div class="colvisopts with-small-padding" id="colvisopts">
                                     <div class="showhidemenu" style='width:200px;display:inline-block'>
                                        <a href="javascript:void(0)" class="button blue-gradient glossy" id="btn-show-hide-cols">Show/Hide Columns</a>
-                                       <div id='block-cols-list' style='display:none'>
+                                       <div id='block-cols-list'>
+
                                           <!-- <center><a href="javascript:void(0)" class="button compact blue-gradient">Update Results</a></center>-->
                                        </div>
                                     </div>
                                     <div class='float-right' style="margin-right:10px;padding-top:5px"><small>In printing mode, click "ESC" in keyboard to go back in main page</small></div>
-                                 </div>
-                                 <table class="table responsive-table responsive-table-on dataTable" id="table-list-view" >
+                                 </div>sortType/{{sortType}}
+                                 <table class="table responsive-table responsive-table-on" id="table-list-view" >
+                                        <thead ng-if="$index == 0" ng-repeat="tableObj in selectedTableData">
+
+                                            <tr>{{tableObj}}
+                                                <td ng-repeat="(key,value) in tableObj"  ng-click="sort(key)" ng-if="checkWeb(key)">{{key}}</td>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody >
+                                            <tr ng-repeat="tableObj in selectedTableData | orderBy:sortType:false">
+                                                <td ng-if="checkWeb(key)" ng-repeat="(key,value) in tableObj">{{value}}</td>
+                                            </tr>
+                                        </tbody>
                                  </table>
                               </div>
                               <div id="map_view" class="with-padding">
@@ -153,6 +166,9 @@
                            Filter Results
                         </header>
                         <dl class="accordion white-bg with-mid-padding" id="acd-filter-menu">
+                            <div ng-repeat="(key,value) in selectedTableData">
+                                <div ng-repeat="filter in filterFields">{{value[filter.name]}}</div>
+                            </div>
                         </dl>
                      </div>
                      <!-- End content wrapper -->
@@ -163,7 +179,8 @@
                   </section>
                   <!-- End sidebar/drop-down menu -->
                   <!-- JavaScript at the bottom for fast page loading -->
-                <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script> 
+                <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+                <script src="js/libs/lodash.min.js"> </script>
                 <script src="js/angular/angular-filter.min.js"></script>
                 <script src ="js/angular/API.js"></script>
                 <script src="js/angular/mainController.js"></script>
