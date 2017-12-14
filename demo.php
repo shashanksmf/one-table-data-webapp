@@ -24,6 +24,8 @@
     <script src="js/libs/modernizr.custom.js"></script>
     <!-- ui lib(responsive feature) -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/custom.css">
+    
     <link rel="stylesheet" href="ui-lib/css/reset.css?v=1">
     <link rel="stylesheet" href="ui-lib/css/style.css?v=1">
 	<link rel="stylesheet" href="ui-lib/css/colors.css?v=1">
@@ -89,7 +91,7 @@
         font-size: 16px;
         border:1px solid black;
         cursor: pointer;
-        width: 50px;
+        width: 100px;
  
     }
 
@@ -132,28 +134,7 @@
       <base href="./">
 </head>
 
-<?php
-$ProjInfo = isset($_POST['ProjInfo']) ? $_POST['ProjInfo'] : '';
-$ProjInfo='SPR201301';
-require_once('includes/database.php');
-$db= new Database();
-    $db->connect();
-$mtaquery= 'SELECT mtaname, count( mtaname ) as cnt FROM st_towerco_tb GROUP BY mtaname';
-$btaquery= 'select mtaname,btaname, count(btaname) as cnt from st_towerco_tb group by btaname order by mtaname asc';
-$towerownersquery='select distinct TowerOwner from st_towerco_tb where TowerOwner!=""';
-$mtadata=$db->fetch_all_array($mtaquery);
-$btadata=$db->fetch_all_array($btaquery);
-$towerownersdata=$db->fetch_all_array($towerownersquery);
-$btajson=array();
-foreach($mtadata as $mta){
-	$btajson[$mta['mtaname']]=array();
-}
 
-foreach($btadata as $row){
-	$btajson[$row['mtaname']][]=array($row['btaname'],$row['cnt']);
-}
-$db->close();
-?>
 
 
 
@@ -181,40 +162,21 @@ $db->close();
                       <input name="dec-radius" id="dec-radius" class="input-unstyled validate[required]" placeholder="Radius MI" style='width:70px' value=""  maxlength="2" type="text">
                       <select id='tower-owners-latlng' name="tower-owners" class="selectcustom   auto-open mid-margin-left mid-margin-right " style='width:100px'>
                             <option value="all">Owner:All</option>
-                            <?php
-                                foreach($towerownersdata as $tower){
-                             ?>
-                             <option value="<?php echo $tower['TowerOwner']; ?>"><?php echo $tower['TowerOwner']; ?></option>
-                             <?php
-                                }
-                            ?>
-                      </select>
+                                                  </select>
                       <a href="javascript:void(0)" class="button blue-gradient glossy" id='btn-search-latlng'>Search </a>
                    </form>
                    <form method="post" action="#" id='frm-search-mtabta' style='padding-bottom: 2px;display:none'>
                       <span class="info-spot on-left"><span class="icon-info-round"></span><span class="info-bubble">Click <i class="icon-page-list"></i> to show search options</span></span>
                       <select id='slc-mta' name="slc-mta" class="select compact mid-margin-left  expandable-list" style='width:200px;'>
                         <option value='none' selected>MTA Name</option>
-                        <?php
-                            foreach($mtadata as $mta){
-                        ?>
-                        <option value="<?php echo $mta['mtaname']; ?>"><?php echo $mta['mtaname'], ' (' , $mta['cnt'],')'; ?></option>
-                        <?php
-                            }
-                        ?>
+                        
                       </select>
                       <select id='slc-bta' name="slc-bta" class="select  compact mid-margin-left mid-margin-right expandable-list " style='width:200px;'>
                            <option value='none' >BTA Name</option>
                       </select>
                       <select id='tower-owners-mtabta' name="tower-owners" class="selectcustom   auto-open mid-margin-left mid-margin-right " style='width:100px'>
                             <option value="all">Owner:All</option>
-                            <?php
-                                foreach($towerownersdata as $tower){
-                             ?>
-                             <option value="<?php echo $tower['TowerOwner']; ?>"><?php echo $tower['TowerOwner']; ?></option>
-                             <?php
-                                }
-                            ?>
+                        
                       </select>
                       <a href="javascript:void(0)" class="button blue-gradient glossy" id='btn-search-mtabta'>Search </a>
                    </form>
@@ -285,14 +247,7 @@ $db->close();
                       <input name="dec-radius" id="addr-dec-radius" class="input-unstyled" placeholder="Radius MI" value="" maxlength="10" style='width:70px'  type="text">
                       <select id='tower-owners-address' name="tower-owners" class="selectcustom   auto-open mid-margin-left mid-margin-right " style='width:100px'>
                             <option value="all">Owner:All</option>
-                            <?php
-                                foreach($towerownersdata as $tower){
-                             ?>
-                             <option value="<?php echo $tower['TowerOwner']; ?>"><?php echo $tower['TowerOwner']; ?></option>
-                             <?php
-                                }
-                            ?>
-                      </select>
+                                            </select>
                       <a href="javascript:void(0)" class="button blue-gradient glossy" id='btn-search-address'>Search </a>
                    </form>
                    <form method="post" action="#" id='frm-search-site' style='padding-bottom: 2px;display:none'>
@@ -302,13 +257,7 @@ $db->close();
                       <input name="asrfcc-number" id="asrfcc-number" class="input-unstyled" placeholder="ASR/FCC Number" value=""  maxlength="50" style='width:100px' type="text">
                       <select id='tower-owners-name' name="tower-owners" class="selectcustom   auto-open mid-margin-left mid-margin-right " style='width:100px'>
                             <option value="all">Owner:All</option>
-                            <?php
-                                foreach($towerownersdata as $tower){
-                             ?>
-                             <option value="<?php echo $tower['TowerOwner']; ?>"><?php echo $tower['TowerOwner']; ?></option>
-                             <?php
-                                }
-                            ?>
+                        
                       </select>
                       <a href="javascript:void(0)" class="button blue-gradient glossy" id='btn-search-name'>Search </a>
                    </form>
@@ -338,14 +287,17 @@ $db->close();
 	<ul class="tabs">
 		<li class="active"><a href="#list_view" class='with-med-padding' style="padding-bottom:12px;padding-top:12px"><i class="icon-list icon-size2"> </i> List Liew</a></li>
 		<li><a href="#map_view" class='with-med-padding' style="padding-bottom:12px;padding-top:12px"><i class="icon-marker icon-size2"> </i> Map View</a></li>
-	</ul>
+        <li><select class="selectcustom" ng-model="selectedTableName" ng-change="selectTable(selectedTableName)" ng-options="tableObj.db_tb as tableObj.db_tb for tableObj in uTableData  | unique:'table'">
+        </select></li>
+    </ul>
     
-    <div class="tables dropdown">
-        <button class="dropbtn glyphicon glyphicon-chevron-down text-right"></button>
+    <!-- <div class="tables dropdown">
+        <button class="dropbtn">{{selectedTableName}}<i style="float: right;" class=" glyphicon glyphicon-chevron-down text-right"></i></button>
         <div class="dropdown-content">
             <a ng-repeat="tableObj in uTableData  | unique:'table'" ng-click="selectTable(tableObj.db_tb)">{{tableObj.table}}</a>
         </div>
-    </div>
+    </div> -->
+   
 
 	<!-- Content -->
 	<div class="tabs-content">
@@ -392,12 +344,11 @@ $db->close();
             </thead>
 
             <tbody >
-                <tr ng-repeat="tableObj in selectedTableData | orderBy:sortType:false | filter: searchKeyword ">
+                <tr ng-repeat="tableObj in selectedTableData | orderBy:sortType:false | filter: searchKeyword " ng-if="tableObj.isFilter">
                     <td ng-if="checkWeb(key)" ng-repeat="(key,value) in tableObj">{{value}}</td>
                 </tr>
             </tbody>
         </table>
-        
         <div class="dataTables_footer">
             <div class="dataTables_info" id="table-list-view_info" role="status" aria-live="polite">Showing 0 to 0 of 0 entries</div>
             <div class="dataTables_paginate paging_full_numbers" id="table-list-view_paginate"><a class="paginate_button first disabled" aria-controls="table-list-view" data-dt-idx="0" tabindex="0" id="table-list-view_first">First</a><a class="paginate_button previous disabled" aria-controls="table-list-view" data-dt-idx="1" tabindex="0" id="table-list-view_previous">Previous</a><span></span><a class="paginate_button next disabled" aria-controls="table-list-view" data-dt-idx="2" tabindex="0" id="table-list-view_next">Next</a><a class="paginate_button last disabled" aria-controls="table-list-view" data-dt-idx="3" tabindex="0" id="table-list-view_last">Last</a></div>
@@ -408,7 +359,7 @@ $db->close();
     
 		</div>
 
-		<div id="map_view" class="with-padding">
+		<div id="map_view" class="with-padding" style="display:none">
             <div class="side-tabs  same-height margin-bottom">
             <ul class="tabs">
 		        <li class="active" ><a href="#tab-map-google" class='with-med-padding'>Google Map</a></li>
@@ -443,14 +394,37 @@ $db->close();
     	<div id="menu-content">
 
 			<header>
-				Filter Results
+                Filter Results
 			</header>
-             <dl class="accordion white-bg with-mid-padding" id="acd-filter-menu">
-                <div ng-repeat="filter in filterFields">
-                    <div>{{filter.name}}</div>
+             <dl class="accordion white-bg with-mid-padding" id="acd-filter-menu" ng-init="showTab=[]"> 
+                <div ng-repeat="filterObj in filterData" >
+                    <dt ng-click="showTab[$index] = !showTab[$index]">{{filterObj.key}}</dt>
+                    <dd ng-show="showTab[$index] == true">
+                        <div class="with-small-padding">
+                            <div class="blue-bg with-small-padding filterheader">
+                                <span class="checkbox  replacement" tabindex="0" ng-class="{'checked':filterObj.checkAll}" ng-click="filterObj.checkAll=!filterObj.checkAll;filterCheckAll($index,filterObj.key,filterObj.checkAll)">
+                                    <span class="check-knob"></span>
+                                    <input id="" checked="" class="" name="County" type="checkbox" value="County" tabindex="-1">
+                                </span>
+                                 Check/Uncheck All
+                            </div>
+                            <ul class="list">
+                                <li ng-repeat="names in filterObj.val | unique: names" >
+                                    <!-- addValuesToFilters(filterObj.key,names.value,names.checked) -->
+                                    <span class="checkbox replacement mr5" ng-class="{'checked':names.checked}"  ng-click="names.checked=!names.checked;filterTable(filterObj.key,names.value,names.checked)">
+                                            <span class="check-knob"></span>
+                                            <input type="checkbox"  />
+                                        </span>
+                                    <span>{{names.value}}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </dd>
+                    
                 </div>
        		 </dl>
 		</div>
+
 		<!-- End content wrapper -->
 
 		<!-- This is optional -->
@@ -461,14 +435,11 @@ $db->close();
 	</section>
 	<!-- End sidebar/drop-down menu -->
    <!-- JavaScript at the bottom for fast page loading -->
-   <script>
-        MTABTAOBJECTS=<?php  print json_encode($btajson); ?>;
-        PROJECTINFO='<?php echo $ProjInfo;?>';
-    </script>
+  
     <script src="ui-lib/js/setup.js"></script>
     <script src="ui-lib/js/developr.auto-resizing.js"></script>
     <script src="ui-lib/js/developr.modal.js"></script>
-	<script src="ui-lib/js/developr.input.js"></script>
+	<!-- <script src="ui-lib/js/developr.input.js"></script>
     <script src="ui-lib/js/developr.scroll.js"></script>
     <script src="ui-lib/js/developr.tooltip.js"></script>
     <script src="ui-lib/js/developr.message.js"></script>
@@ -479,7 +450,7 @@ $db->close();
     <script src="ui-lib/js/developr.progress-slider.js"></script>
     <script src="ui-lib/js/libs/query.validationEngine.js"></script>
     <script src="ui-lib/js/libs/jquery.validationEngine-en.js"></script>
-    <script src="ui-lib/js/libs/jquery.details.min.js"></script>
+    <script src="ui-lib/js/libs/jquery.details.min.js"></script> -->
      <!-- <script src="js/mapapp.js"></script> -->
     <!-- <script src="js/libs/jquery.dataTables.min.js"></script>
      <script src="js/libs/dataTables.tableTools.js"></script>
@@ -492,6 +463,7 @@ $db->close();
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
     <script src="js/libs/lodash.min.js"> </script>
     <script src="js/angular/angular-filter.min.js"></script>
+    <script src="js/angular/route.js"></script>
     <script src ="js/angular/API.js"></script>
     <script src="js/angular/mainController.js"></script>
     

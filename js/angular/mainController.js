@@ -1,10 +1,8 @@
-app.controller('myCtrl', ['$scope', 'API', '$location', '$routeParams','$route', function ($scope, API, $location, $routeParams,$route) {
-   $scope.uTableData = [], $scope.selectedTableName, $scope.sortType = "", $scope.filterData = [];
+app.controller('myCtrl', ['$scope', 'API', '$location', '$routeParams','$route','$timeout', function ($scope, API, $location, $routeParams,$route,$timeout) {
+    $scope.uTableData = [], $scope.selectedTableName, $scope.sortType = "", $scope.filterObj = {}, $scope.filterData = []; 
     $scope.filterFields = [];
     $scope.urlRoute = $route;
-    $scope.$watch('urlRoute',function(oldval,newVal){
-        console.log(oldval,newVal);
-    }) 
+    
     var filterData = [];
 
     $scope.selectTable = function(tableName) {
@@ -12,8 +10,25 @@ app.controller('myCtrl', ['$scope', 'API', '$location', '$routeParams','$route',
         $scope.selectedTableName = tableName;
         API.selectedTable(tableName).then(function(response){
             if (response.status == 200) {
-                $scope.selectedTableData = response.data.data;
+                $scope.selectedTableData = response.data.data; 
+                
+                for (var k = 0; k < $scope.selectedTableData.length;k++) {
+                    $scope.selectedTableData[k].isFilter = true;
+                }
+              
                 $scope.filterFields = _.filter($scope.uTableData, { 'db_tb': $scope.selectedTableName, 'filter': 'Yes' })
+                var filterData = [];
+                for (var i = 0; i < $scope.filterFields.length;i++) {
+                    var filterArr = []; 
+                    for(var j=0;j<$scope.selectedTableData.length;j++) {
+                        if ($scope.selectedTableData[j][$scope.filterFields[i].name]) {
+                            filterArr.push({ checked: true, value: $scope.selectedTableData[j][$scope.filterFields[i].name] });
+                        }
+                    }
+                    filterData.push({ key: $scope.filterFields[i].name, val: _.uniqWith(filterArr, _.isEqual) , checkAll:true });
+                }
+                $scope.filterData = filterData;
+             
             }
             else {
                 alert("Please Try again Later "+ response.statusText);
@@ -21,10 +36,9 @@ app.controller('myCtrl', ['$scope', 'API', '$location', '$routeParams','$route',
         })
     }
 
-    // var routeParam = $route.current.param.split("=")[1];
-    // if(routeParam && routeParam.length > 0) {
-    //     $scope.selectTable(routeParam);
-    // }
+    $scope.$watch('filterData',function(oldval,newval){
+        console.log("oldval,newval", oldval, newval)
+    })
 
     API.getUtable().then(function(response){
      //   console.log("response",response);
@@ -39,10 +53,9 @@ app.controller('myCtrl', ['$scope', 'API', '$location', '$routeParams','$route',
     })
 
     $scope.checkWeb = function(params){
-        console.log(params.trim().replace("_", " ").trim(), "-", $scope.selectedTableName, $scope.uTableData);
         if (_.find) {
             var lodObj = _.find($scope.uTableData, { 'db_tb': $scope.selectedTableName, 'name': params.trim().replace("_"," ").trim(), 'web': 'Yes' });
-            console.log(lodObj)
+          //  console.log(lodObj)
             return lodObj ? 1 : 0;
         } else {
             return 0;
@@ -51,8 +64,23 @@ app.controller('myCtrl', ['$scope', 'API', '$location', '$routeParams','$route',
     }
 
     $scope.sort = function(name){
-      //  console.log(name);
         $scope.sortType = name;
+    }
+
+    $scope.filterTable = function(key,value,status) { 
+      //  console.log(key,value,status);
+        for(var i=0; i < $scope.selectedTableData.length; i++) {
+            if ($scope.selectedTableData[i][key] == value) {
+                $scope.selectedTableData[i].isFilter = status;
+            }
+        }   
+    }
+
+    $scope.filterCheckAll = function (index, columnName,status){
+        $scope.filterData[index].val.forEach(function(item){
+            item.checked = status;
+            $scope.filterTable(columnName,item.value,status);
+        })
     }
 
 }]);
