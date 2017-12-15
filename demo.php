@@ -286,7 +286,7 @@
 	<!-- Tabs -->
 	<ul class="tabs">
 		<li class="active"><a href="#list_view" class='with-med-padding' style="padding-bottom:12px;padding-top:12px"><i class="icon-list icon-size2"> </i> List Liew</a></li>
-		<li><a href="#map_view" class='with-med-padding' style="padding-bottom:12px;padding-top:12px"><i class="icon-marker icon-size2"> </i> Map View</a></li>
+		<li ng-if="selectedTableName == 'st'"><a href="#map_view" class='with-med-padding' style="padding-bottom:12px;padding-top:12px"><i class="icon-marker icon-size2"> </i> Map View</a></li>
         <li><select class="selectcustom" ng-model="selectedTableName" ng-change="selectTable(selectedTableName)" ng-options="tableObj.db_tb as tableObj.db_tb for tableObj in uTableData  | unique:'table'">
         </select></li>
     </ul>
@@ -329,8 +329,9 @@
                         <option value="100">100</option>
                     </select>
                     </span>
-                    entries
+                    entries 
                 </label>
+               
             </div>
             <a style="margin-top:11px" href="javascript:void(0)" class="button blue-gradient glossy" id="btn-add-to-project">Add selected entries to project.</a>
             <div id="table-list-view_filter" class="dataTables_filter"><label>Search by Keyword:<input ng-model="searchKeyword" type="search" class="" placeholder="Within listed entries" aria-controls="table-list-view"></label></div>
@@ -343,10 +344,21 @@
                 </tr>
             </thead>
 
-            <tbody>
+            <tbody >
                 <tr ng-repeat="tableObj in selectedTableData | orderBy:sortType:false | filter: searchKeyword " ng-if="tableObj.isFilter">
-                    <td ng-if="checkWeb(key)" ng-repeat="(key,value) in tableObj">{{value}}</td>
+                    <td ng-if="checkWeb(key)" ng-repeat="(key,value) in tableObj">
+                        <a ng-click="editSelectedData(tableObj,$parent.$parent.$parent.$index)" ng-if="isEditable(key,selectedTableName)" class="btn-tower-id" ><i class="icon-info-round"> </i> 
+                            <b>{{value}}</b>
+                        </a>
+                        <span ng-if="!isEditable(key,selectedTableName)">{{value}}</span>
+                    </td>
                 </tr>
+                 
+                
+                <tr ng-show="$index == 0" ng-if="sumArr.length > 0" ng-repeat="tableObj in selectedTableData">
+                    <td ng-repeat="(key,value) in tableObj" ng-if="checkWeb(key)"><span ng-if="ifSum(key)" >{{getSum(key)}}</span></td>
+                </tr>
+
             </tbody>
         </table>
         <div class="dataTables_footer">
@@ -425,6 +437,8 @@
        		 </dl>
 		</div>
 
+       
+
 		<!-- End content wrapper -->
 
 		<!-- This is optional -->
@@ -433,15 +447,16 @@
 		</footer>
 
 	</section>
+
 	<!-- End sidebar/drop-down menu -->
    <!-- JavaScript at the bottom for fast page loading -->
   
     <script src="ui-lib/js/setup.js"></script>
     <script src="ui-lib/js/developr.auto-resizing.js"></script>
     <script src="ui-lib/js/developr.modal.js"></script>
-	<!-- <script src="ui-lib/js/developr.input.js"></script>
+	<script src="ui-lib/js/developr.input.js"></script>
     <script src="ui-lib/js/developr.scroll.js"></script>
-    <script src="ui-lib/js/developr.tooltip.js"></script>
+    <!-- <script src="ui-lib/js/developr.tooltip.js"></script>
     <script src="ui-lib/js/developr.message.js"></script>
     <script src="ui-lib/js/developr.notify.js"></script>
     <script src="ui-lib/js/developr.tabs.js"></script>
@@ -467,6 +482,83 @@
     <script src ="js/angular/API.js"></script>
     <script src="js/angular/mainController.js"></script>
     
+
+             <!-- Pop Up Modal -->
+        <div id="modals " class="with-blocker editable-modal" ng-if="showModal">
+      
+        <div class="modal-blocker visible"></div>
+        <div class="modal" style="display:block;left: 20%;right: 30%; top: 23px; opacity: 1; margin-top: 0px;">
+            <ul class="modal-actions children-tooltip">
+                <li class="red-hover"><a href="#" title="Close">Close</a></li>
+            </ul>
+            <div class="modal-bg">
+                <div class="modal-content custom-scroll" style="box-shadow: none;border: none;min-width: 200px; min-height: 16px; width: 600px; height: 450px; position: relative; max-width: 1277px; max-height: 476px;">
+                    <table align="center" border="1" cellspacing="0" style="background:white;color:black;width:80%;">
+                    <tbody>
+                        <tr ng-repeat="(key,value) in editData" ng-if="checkIfVisible(key)">
+                            <td><label>{{key}}</label></td>
+                            <td ><input type="text" class="form-control"  value="{{value}}" ng-model="editData[key]"/></td>
+                        </tr>
+                        <tr>
+                            <td><button class="btn btn-danger" ng-click="deleteRow(editData)">Delete</button></td>
+                            <td><button class="btn btn-info" ng-click="updateRow(editData)">Update</button></td>
+                        </tr>
+                    </tbody>
+                    </table>
+
+                    <h2 class="blue">Tower ID : </h2>
+                    <input class="details-latlng" type="hidden" value=":">
+                    <div class="standard-tabs tabs-active" style="height: 40px;">
+                    <!-- Tabs -->
+                    <ul class="tabs same-height">
+                        <li class="active"><a href="#details_lview" class="with-small-padding"> Details</a></li>
+                        <li><a href="#details_gmap" class="with-small-padding"> Google Map</a></li>
+                        <li><a href="#details_bmap" class="with-small-padding"> Bing Map</a></li>
+                    </ul>
+                    <!-- Content -->
+                    <div class="tabs-content" id="details-tabs-content" style="min-height: 39px;">
+                        <span class="tabs-back with-left-arrow top-bevel-on-light dark-text-bevel">Back</span>
+                        <div id="details_lview" class="tab-active">
+                            <div class="columns with-padding">
+                                <div class="six-columns  align-center">
+                                <div class="with-small-padding">
+                                    <img src="towerimages/default.jpeg" style="height:260px">
+                                </div>
+                                </div>
+                                <div class="six-columns scrollable custom-scroll" style="height: 280px; position: relative;">
+                                <ul class="bullet-list ">
+                                </ul>
+                                <div class="custom-vscrollbar" style="display: none; opacity: 0;">
+                                    <div></div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="details_gmap" class="with-small-padding" style="position: relative; width: 100%; height: 320px; display: none;">
+                            <div style="height: 100%; width: 100%;"></div>
+                        </div>
+                        <div id="details_bmap" class="with-small-padding" style="position: relative; width: 100%; height: 320px; display: none;">
+                        </div>
+                    </div>
+                    </div>
+                    <div class="custom-vscrollbar" style="top: 6px; left: 586px; height: 438px; width: 8px; opacity: 1; display: block;">
+                    <div style="top: 0px; height: 347px;"></div>
+                    </div>
+                </div>
+                <div class="modal-buttons align-right low-padding"><button type="button" ng-click="closeModal()" class="button small">Close</button></div>
+            </div>
+            <div class="modal-resize-nw"></div>
+            <div class="modal-resize-n"></div>
+            <div class="modal-resize-ne"></div>
+            <div class="modal-resize-e"></div>
+            <div class="modal-resize-se"></div>
+            <div class="modal-resize-s"></div>
+            <div class="modal-resize-sw"></div>
+            <div class="modal-resize-w"></div>
+        </div>
+        </div>
+
+        <!-- Pop Up Modal -->
 
 </body>
 </html>

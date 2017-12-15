@@ -77,3 +77,15 @@ list > li:first-child {
 .mr5{
     margin-right:5px;
 }
+
+.editable-modal td{
+        vertical-align:baseline;
+}
+
+.editable-modal td input{
+        margin-bottom:5px;
+}
+
+.editable-modal .custom-scroll {
+    overflow-y:auto !important;
+}

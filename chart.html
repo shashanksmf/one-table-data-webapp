@@ -1,0 +1,810 @@
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+        .inline-block{
+            display:inline-block;
+        }
+
+        .margin-20{
+            margin:0 auto;
+        }
+
+        .bg-grey{
+            background-color: #cfd8dc;
+        }
+
+        .ht-top-200{
+            width: 4%;
+            height:200px;
+        }
+
+        .ht-top-70{
+            width: 4%;
+            height:140px;
+        }
+
+        .ht-top-80{
+            width: 4%;
+            height:160px;
+        }
+
+        .ht-bt-200{
+            width:4%;
+            height:100px;
+        }
+        .up,.down{
+            height: 200px;
+            display:flex;
+        }
+
+        .up{
+            align-items: flex-end;
+        }
+
+        .bg-red{
+            background-color: #f44336;
+        }
+
+        .graph {
+            position: absolute;
+            left: 5%;
+            top: 6px;
+            width:100%;
+            max-width: 95%;
+        }
+        .xs-square{
+            width:12px;
+            height:12px;
+            margin-right:7px;
+        }
+        .flex {
+            display:flex;
+            align-items: center;
+        }
+        .text-grey{
+            color: #c6d1d6;
+        }
+
+        .text-red{
+          color:  #f44336;
+        }
+
+        .chart-graph-wrapper{
+            position:relative;
+        }
+        .header{
+            padding-left: 10px;
+            display: flex;
+            margin-bottom: 5px;
+            padding-bottom:10px;
+            border-bottom:1px solid #c6d1d6;
+        }
+
+        .header .left-content{
+            flex: 1;
+        }
+
+        .header .left-content .text-grey {    
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        .header .left-content .headline {
+            font-size: larger;
+            font-weight: 500;
+            font-family: sans-serif
+        }
+
+        .header .right-content{
+            display: flex;
+            align-items: center;
+        }
+
+        .flex-align-center{
+            display:flex;
+            align-items:center;   
+        }
+
+        body{
+            margin: auto;
+            max-width: 900px;
+        }
+    </style>
+    <script>
+        $(document).ready(function(){
+            var  barElm = $(".inline-block");
+            for (var i = 0; i < barElm.length; i++) {
+                $(barElm).eq(i).css("height", $(barElm).eq(i).attr("data-per") + "%");
+            }
+        })
+    </script>
+</head>
+<body>
+<div class="header">
+    <div class="left-content">
+        <div class="text-grey">People with</div>
+        <div class="headline">Low keyboard & Mouse Activity</div>
+    </div>
+    <div class="right-content">
+        <span class="text-grey flex-align-center">Last 7 Days</span>
+        <span></span>
+    </div>
+</div>
+<div class="graph-desc">
+    <div class="flex" style="display:inline-flex;margin-right:10px;margin-left:40px;">
+        <span class="bg-red xs-square"></span>
+        <span class="text-grey">Low activity</span>
+    </div>
+    <div class="flex " style="display:inline-flex;">
+        <span class="bg-grey xs-square"></span>
+        <span class="text-grey">Normal activity</span>
+    </div>
+</div>
+<div class="chart-graph-wrapper">
+<div class="graph">
+    <div class="up">
+        <div class="inline-block margin-20 ht-top-70 bg-grey" data-per="70">
+
+        </div>
+        <div class="inline-block margin-20 ht-top-80 bg-grey" data-per="80">
+
+        </div>
+        <div class="inline-block margin-20 ht-top-80 bg-grey" data-per="80">
+
+        </div>
+        <div class="inline-block margin-20 ht-top-80 bg-grey" data-per="83">
+
+        </div>
+        <div class="inline-block margin-20 ht-top-80 bg-grey" data-per="85">
+
+        </div>
+        <div class="inline-block margin-20 ht-top-80 bg-grey" data-per="87">
+
+        </div>
+        <div class="inline-block margin-20 ht-top-80 bg-grey" data-per="87">
+
+        </div>
+        <div class="inline-block margin-20 ht-top-80 bg-grey" data-per="87">
+
+        </div>
+        <div class="inline-block margin-20 ht-top-80 bg-grey" data-per="90">
+
+        </div>
+        <div class="inline-block margin-20 ht-top-80 bg-grey" data-per="95">
+
+        </div>
+
+    </div>
+
+    <div class="down">
+        <div class="inline-block margin-20 ht-top-70 bg-red" data-per="25">
+
+        </div>
+        <div class="inline-block margin-20 ht-top-80 bg-red" data-per="20">
+
+        </div>
+        <div class="inline-block margin-20 ht-top-80 bg-red" data-per="20">
+
+        </div>
+        <div class="inline-block margin-20 ht-top-80 bg-red" data-per="18">
+
+        </div>
+        <div class="inline-block margin-20 ht-top-80 bg-red" data-per="15">
+
+        </div>
+        <div class="inline-block margin-20 ht-top-80 bg-red" data-per="13">
+
+        </div>
+        <div class="inline-block margin-20 ht-top-80 bg-red" data-per="12">
+
+        </div>
+        <div class="inline-block margin-20 ht-top-80 bg-red" data-per="12">
+
+        </div>
+        <div class="inline-block margin-20 ht-top-80 bg-red" data-per="10">
+
+        </div>
+        <div class="inline-block margin-20 ht-top-80 bg-red" data-per="7">
+
+        </div>
+    </div>
+</div>
+<div class="bg-chart">
+    <ul style="list-style:none">
+        <li class="list">
+            <div class="chart-block">
+                <span class="per">
+                    100%
+                </span>
+                <div class="dash-wrapper">
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                </div>
+            </div>
+        </li>
+
+        <li class="list">
+            <div class="chart-block">
+                <span class="per">
+                    50%
+                </span>
+                <div class="dash-wrapper">
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                </div>
+            </div>
+
+        </li>
+        <li class="list">
+            <div class="chart-block">
+                <span class="per">
+                    0%
+                </span>
+                <div class="dash-wrapper">
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                </div>
+            </div>
+
+        </li>
+        <li class="list">
+            <div class="chart-block">
+                <span class="per">
+                    50%
+                </span>
+                <div class="dash-wrapper">
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                </div>
+            </div>
+
+        </li>
+        <li class="list">
+            <div class="chart-block">
+                <span class="per">
+                    100%
+                </span>
+                <div class="dash-wrapper">
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                    <span class='dash'>-</span>
+                </div>
+            </div>
+
+        </li>
+    </ul>
+</div>
+
+<style>
+    .per {
+        position: relative;
+        top: -3px;
+        font-size: small;
+        color: grey;
+        margin-right: 10px;
+        width: 40px;
+    }
+
+    .chart-line {
+        border-top: 1px dotted #000;
+    }
+
+    .dash {
+        margin-right: 1px;
+        color: #d1d1d1;
+    }
+
+    .chart-block {
+        display: flex;
+    }
+
+    .bg-chart ul {
+        padding-left: 0;
+        margin:0;
+    }
+
+    .list {
+
+        margin-bottom: 80px;
+    }
+
+    .dash-wrapper {
+        white-space: nowrap;
+        max-width: 100%;
+        overflow: hidden;
+    }
+</style>
+</div>
+
+
+</body>
+</html>

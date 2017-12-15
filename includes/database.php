@@ -4,7 +4,7 @@ class Database {
 var $server   = "localhost"; //database server
 var $user     = "root"; //database login name
 var $pass     = ""; //database login password
-var $database = "stmix"; //database name
+var $database = "stimx"; //database name
 var $pre      = ""; //table prefix
 
 
@@ -27,8 +27,7 @@ function Database($server='', $user='', $pass='', $database='', $pre=''){
 
 #  connect and select database using vars above
 function connect($new_link=false) {
-    echo "sad";
-    $this->link_id=@mysql_connect($this->server,$this->user,$this->pass,$this->database);
+    $this->link_id=@mysql_connect($this->server,$this->user,$this->pass,$new_link);
 
     if (!$this->link_id) {//open failed
         $this->oops("Could not connect to server: <b>$this->server</b>.");
