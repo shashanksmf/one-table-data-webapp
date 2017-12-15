@@ -343,7 +343,7 @@
                 </tr>
             </thead>
 
-            <tbody >
+            <tbody>
                 <tr ng-repeat="tableObj in selectedTableData | orderBy:sortType:false | filter: searchKeyword " ng-if="tableObj.isFilter">
                     <td ng-if="checkWeb(key)" ng-repeat="(key,value) in tableObj">{{value}}</td>
                 </tr>

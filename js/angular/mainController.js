@@ -28,17 +28,13 @@ app.controller('myCtrl', ['$scope', 'API', '$location', '$routeParams','$route',
                     filterData.push({ key: $scope.filterFields[i].name, val: _.uniqWith(filterArr, _.isEqual) , checkAll:true });
                 }
                 $scope.filterData = filterData;
-             
+                console.log($scope.selectedTableData);
             }
             else {
                 alert("Please Try again Later "+ response.statusText);
             }
         })
     }
-
-    $scope.$watch('filterData',function(oldval,newval){
-        console.log("oldval,newval", oldval, newval)
-    })
 
     API.getUtable().then(function(response){
      //   console.log("response",response);
@@ -53,6 +49,7 @@ app.controller('myCtrl', ['$scope', 'API', '$location', '$routeParams','$route',
     })
 
     $scope.checkWeb = function(params){
+        console.log(params, $scope.selectedTableName,$scope.uTableData)
         if (_.find) {
             var lodObj = _.find($scope.uTableData, { 'db_tb': $scope.selectedTableName, 'name': params.trim().replace("_"," ").trim(), 'web': 'Yes' });
           //  console.log(lodObj)
