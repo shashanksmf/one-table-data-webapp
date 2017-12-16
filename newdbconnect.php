@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 $servername = "mysql://b76cbf400956e9:a0107278@us-cdbr-iron-east-05.cleardb.net/heroku_f1331253e1e8450";
 $username = "b76cbf400956e9";
 $password = "a0107278";
